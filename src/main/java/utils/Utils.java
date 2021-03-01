@@ -2,7 +2,10 @@ package utils;
 
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
+import config.PageBase;
 
 /**.
  * 
@@ -11,7 +14,7 @@ import org.openqa.selenium.WebElement;
  * 
  * 
  */
-public class Utils {
+public class Utils extends PageBase{
 	
 	/**
 	 * 
@@ -40,9 +43,9 @@ public class Utils {
 		}
 	}
 	
-	public static void WaitForElementList(List<WebElement> ele) {
+	public static List<WebElement> waitForElementList(List<WebElement> element) {
 		int timeOut = 10;
-		while(!(ele.size() > 0) &&  timeOut > 0) {
+		while(!(element.size() > 0) &&  timeOut > 0) {
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
@@ -50,10 +53,13 @@ public class Utils {
 			}
 			timeOut--;
 		}
+		return element;
 	}
 	
-	public static void WaitForElementList(List<WebElement> ele, int timeOut) {
-		while(!(ele.size() > 0) &&  timeOut > 0) {
+	
+	
+	public static List<WebElement> waitForElementList(List<WebElement> element, int timeOut) {
+		while(!(element.size() > 0) &&  timeOut > 0) {
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
@@ -61,5 +67,20 @@ public class Utils {
 			}
 			timeOut--;
 		}
+		return element;
+	}
+	
+	public static List<WebElement> buildElement(String xpath){
+		int timeOut = 10;
+		while(!(driver.findElements(By.xpath(xpath)).size() > 0) &&  timeOut > 0) {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			timeOut--;
+		}
+		List<WebElement> el = driver.findElements(By.xpath(xpath));
+		return el;
 	}
 }
